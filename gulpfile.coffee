@@ -23,6 +23,7 @@ gulp.task 'bump', (done) ->
         .on 'end', ->
           git.push 'origin', 'master', {}, ->
             git.tag version, message, {}, ->
-              git.push 'origin', 'master', args: ' --tags', () ->
-                npm.commands.publish done
+              git.push 'origin', 'master', args: ' --tags', ->
+                npm.load ->
+                  npm.commands.publish done
   return
